@@ -5,9 +5,10 @@ import * as serviceWorker from './serviceWorker';
 
 fetch('./data/products.json')
 .then(resp => resp.json()) 
-.then(({products}) => {
+.then(({products}, Image) => {
    ReactDOM.render(<App products={products} />, document.getElementById('root'));
 });
+
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
