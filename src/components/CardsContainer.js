@@ -1,4 +1,5 @@
 import React from 'react';
+import Card from './Card';
 
 const CardsContainer = ({items, pathNames}) => {
   const pairedList = [];
@@ -20,6 +21,7 @@ const CardsContainer = ({items, pathNames}) => {
   const output = pairedList.map((element) => {
     let pathName = '/data/products/' + element.imagePath + '_1.jpg'
     return (
+
       <div>
         <img src={process.env.PUBLIC_URL + pathName} />
         <p>{element.name}</p>
