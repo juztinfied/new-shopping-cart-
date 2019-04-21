@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  position: relative;
 }
 
 .App-logo {
@@ -30,4 +31,35 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.cardcontainer {
+  margin: 10px 10px 10px 10px;
+}
+
+.imageframe {
+  width: 400px;
+  height: 560px;
+  margin: 10px;
+  float: left;
+  border: 2px solid #04111A;
+  position: relative;
+}
+
+.imageframe div {
+  display: block;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  margin-bottom: auto;
+
+}
+
+.imageframe img {
+  display: block;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }

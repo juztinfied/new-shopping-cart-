@@ -12,25 +12,20 @@ const CardsContainer = ({items, pathNames}) => {
     })
 
     pair['name'] = item.title;
-    pair['imagePath'] = pathName;
+    pair['imagePath'] = '/data/products/' + pathName + '_1.jpg'
     pairedList.push(pair);
     return item;
 
   });
 
-  const output = pairedList.map((element) => {
-    let pathName = '/data/products/' + element.imagePath + '_1.jpg'
+  const output = pairedList.map((pair) => {
     return (
-
-      <div>
-        <img src={process.env.PUBLIC_URL + pathName} />
-        <p>{element.name}</p>
-      </div>
+      <Card title={pair.name} pathName={pair.imagePath} />
     )
   })
 
   return (
-    <div>
+    <div className="cardcontainer">
       {output}
     </div>
   )
