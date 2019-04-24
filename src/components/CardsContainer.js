@@ -24,8 +24,11 @@ const CardsContainer = ({items, pathNames, allProductData}) => {
     )
   })
 
+  let noOfItems = output.length
+
   return (
     <div className="cardcontainer">
+      <div className="noOfItems">{noOfItems} Product(s) found</div>
       {output}
     </div>
   )
