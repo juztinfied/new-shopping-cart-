@@ -37,9 +37,21 @@
   margin: 10px 10px 10px 10px;
 }
 
+.cardcontainer:hover .AddToCart{
+  background-color: yellow;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.cardcontainer .AddToCart {
+  background-color: #282c34;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
 .imageframe {
-  width: 400px;
-  height: 560px;
+  width: 350px;
+  height: 570px;
   margin: 10px;
   float: left;
   border: 2px solid #04111A;
@@ -51,15 +63,17 @@
   text-align: center;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 20px;
+  margin-top: 2px;
   margin-bottom: auto;
 
 }
 
 .imageframe img {
   display: block;
-  margin-left: 10px;
-  margin-right: 10px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-left: 1px;
+  margin-right: 1px;
+  margin-top: 1px;
+  margin-bottom: 1px;
 }
+
+

@@ -9,7 +9,7 @@ const App = ({products}, Image) => {
 
   return (
     <div>
-      <CardsContainer items={items} pathNames={pathNames} /> 
+      <CardsContainer items={items} pathNames={pathNames} allProductData={products}/> 
     </div>
   )
 
