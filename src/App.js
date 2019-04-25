@@ -1,5 +1,6 @@
 import React from 'react';
 import CardsContainer from './components/CardsContainer';
+import Button from './components/shoppingcart/Button';
 import './App.css';
 
 const App = ({products}, Image) => {
@@ -9,6 +10,7 @@ const App = ({products}, Image) => {
 
   return (
     <div>
+      <Button />
       <CardsContainer items={items} pathNames={pathNames} allProductData={products}/> 
     </div>
   )
