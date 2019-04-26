@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 
-const Button = ({props}) => {
+const Button = (props) => {
     return (
-        <button className="button-container">
+        <button className="button-container" onClick={props.drawerClickHandler}>
             <img src={process.env.PUBLIC_URL + '/images/shopping-cart-logo.svg.hi_.png'} />
-            <circle><p>10</p></circle>
+            <badge className="badge">10</badge>
         </button>
     )
 

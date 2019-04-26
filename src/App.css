@@ -3,12 +3,6 @@
   position: relative;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
-}
-
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -24,15 +18,6 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 .cardcontainer {
   margin: 1px 1px 1px 1px;
   width: 80%;
@@ -42,13 +27,13 @@
   left: 300 px;
 }
 
-.imageframe:hover .AddToCart{
+.card:hover .AddToCart{
   background-color: yellow;
   font-size: calc(10px + 2vmin);
   color: white;
 }
 
-.imageframe .AddToCart {
+.card .AddToCart {
   background-color: #282c34;
   font-size: calc(10px + 2vmin);
   color: white;
@@ -59,7 +44,7 @@
   height: 45px;
 }
 
-.imageframe .FreeShipping {
+.card .FreeShipping {
   background-color: black;
   color: white;
   position: absolute;
@@ -68,7 +53,7 @@
   padding: 2px;
 }
 
-.imageframe {
+.card {
   width: 350px;
   height: 570px;
   margin: 10px;
@@ -77,17 +62,16 @@
   position: relative;
 }
 
-.imageframe div {
+.card div {
   display: block;
   text-align: center;
   margin-left: auto;
   margin-right: auto;
   margin-top: 2px;
   margin-bottom: auto;
-
 }
 
-.imageframe img {
+.card img {
   display: block;
   margin-left: 1px;
   margin-right: 1px;
@@ -111,21 +95,50 @@
   height: auto;
 }
 
-circle {
+.badge {
   height: 15px;
   width: 15px;
   background-color: rgb(10, 10, 10);
-  border-radius: 50%;
   position: absolute;
+  border-radius: 50%;
   right: 12px;
   bottom: 5px;
   z-index: 100;
+  padding: 0;
+  color: yellow;
+  font-size: 0.5em;
+  text-align: center;
+  line-height: 15px;
 }
 
-circle p {
+.sidebar {
+  height:100%;
+  width: 30%;
+  left: 0px;
+  top: 0px;
+  background: black;
   color: white;
-  font-size: 0.5em;
+  float: right;
+  transform: translateX(100%);
+  transition: transform 0.3s ease-out
 }
+
+.sidebar.open {
+  transform: translateX(0)
+}
+
+.sidebar ul {
+  height: 100%;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.sidebar li {
+  list-style: none;
+}
+
 
 
 
