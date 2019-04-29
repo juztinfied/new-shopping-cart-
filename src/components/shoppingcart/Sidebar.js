@@ -6,13 +6,36 @@ const Sidebar = (props) => {
         drawerClasses = 'sidebar open';
     }
 
-    return (
-        <div className={drawerClasses}>
-            <ul>
-                <li>aaasdf</li>
-                <li>asfafdasfadfdalkj</li>
-            </ul>
-        </div>
+    let shoppingCart = []
+    if (props.selected  ){
+        for (let itemName in props.selected){
+            console.log(itemName)
+            let totalPrice = props.selected[itemName][0];
+            let unitPrice = props.selected[itemName][1];
+            let imgPath = props.selected[itemName][2];
+            shoppingCart.push([itemName, unitPrice, totalPrice, imgPath])
+        }
+    }
+
+    console.log(shoppingCart);
+
+    let shoppingCart2 = shoppingCart.map(item => {
+        return (
+            <div>
+                <img src={item[3]} /> 
+                <div>{item[0]}</div>
+                <div>Unit price: {item[1]}</div>
+                <div>Total price: {item[2]}</div>
+            </div>
+        )
+
+    })
+
+    return ( 
+            <div className={drawerClasses}>
+                <button className="xbutton" onClick={props.drawerClickHandler}>X</button>
+                {shoppingCart2}
+            </div>
     )
 }
 
