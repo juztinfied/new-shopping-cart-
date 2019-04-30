@@ -33,6 +33,16 @@ class App extends Component {
     })
   }
 
+  checkOutItems = () => {
+    alert('You have checked out' + this.state.noOfItems  + 'items. Total price: ' + this.state.totalprice)
+
+    this.setState({
+      selected: {},
+      noOfItems: 0,
+      totalprice: 0
+    })
+  }
+
   handleClickProduct = (e) => {
     let array = e.target.title.split(/[,]+/);
     let price = parseFloat(array[1])
@@ -70,7 +80,8 @@ class App extends Component {
       <div>
         <CardsContainer items={items} pathNames={pathNames} allProductData={this.state.products} handleClickProduct={this.handleClickProduct}/> 
         <Button drawerClickHandler={this.drawerToggleClickHandler} noOfItems={this.state.noOfItems}/>
-        <Sidebar show={this.state.sideDrawerOpen} selected={this.state.selected} drawerClickHandler={this.drawerToggleClickHandler} deleteProduct={this.deleteProduct} totalPrice={this.state.totalprice}/>
+        <Sidebar show={this.state.sideDrawerOpen} selected={this.state.selected} drawerClickHandler={this.drawerToggleClickHandler}
+        deleteProduct={this.deleteProduct} totalPrice={this.state.totalprice} checkOutItems={this.checkOutItems}/>
       </div>
     )
 

@@ -37,6 +37,7 @@ const Sidebar = (props) => {
                 <button className="xbutton" onClick={props.drawerClickHandler}>X</button>
                 {shoppingCart2}
                 <div className="totalprice">Total price: {props.totalPrice}</div>
+                <button className="checkout-button" onClick={props.checkOutItems}>CHECK OUT!</button>
             </div>
     )
 }
