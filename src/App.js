@@ -2,17 +2,36 @@ import React, { Component } from 'react';
 import CardsContainer from './components/CardsContainer';
 import Sidebar from './components/shoppingcart/Sidebar';
 import Button from './components/shoppingcart/Button';
-
+import output from './Config/config';
+import firebase from 'firebase/app';
 import './App.css';
 
 class App extends Component {
+  db = output.database().ref().child('products')
   state = {
     sideDrawerOpen: false,
     skus: Object.keys(this.props.products),
     products: this.props.products,
-    selected: {},
+    selected: {}, 
     noOfItems: 0,
     totalprice: 0
+  }
+
+  componentWillMount(){
+    let products = {}
+    this.db.once("value", (snapshot) => {
+      console.log(snapshot)
+      snapshot.forEach(child => {
+        let product = child.val();
+        console.log(product)
+        products[product['sku']] = child.val();
+      });
+      console.log(products)
+      this.setState({products: products})
+    })
+    .catch(function(error) {
+      console.log(error);
+    });  
   }
 
   drawerToggleClickHandler = () => {

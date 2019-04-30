@@ -123,22 +123,39 @@
 .sidebar {
   height: 600px;
   width: 300px;
-  background: red;
+  background: rgb(231, 199, 16);
   color: white;
   right: 0;
   transition: transform 0.3s ease-out;
   position: absolute;
   z-index:2;
   transform: translate(100%);
-  overflow-y: scroll;
   padding: 50px 1px 1px 1px;
 }
 
-.sidebar .totalprice{
-  background: black;
+.sidebar .cart {
+  position: absolute;
+  top: 40px;
+  height: 80%;
   width: 100%;
-  position: sticky;
-  bottom: 0;
+  overflow-y: scroll;
+}
+
+.sidebar .totalprice{
+  color: black;
+  width: 100%;
+  height: 50px;
+  position: absolute;
+  bottom: 10px;
+}
+
+.sidebar .checkout-button {
+  position: absolute;
+  bottom: 0px;
+  background: rgb(204, 107, 17);
+  height: 30px;
+  width: 100%;
+  overflow-y: scroll;
 }
 
 .cartitem {

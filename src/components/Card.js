@@ -1,12 +1,16 @@
 import React from 'react';
 
-const Card = ({title, pathName, price, handleClickProduct}) => {
+const Card = (props) => {
+    let freeshipping
+    if (props.isFreeShipping){
+        freeshipping = <div className="FreeShipping">Free Shipping</div>
+    }
     return (
         <div className="card">
-            <div className="FreeShipping">Free Shipping</div>
-            <img src={process.env.PUBLIC_URL + pathName} title={[title,price]} onClick={handleClickProduct} />
-            <div>{title}</div>
-            <div>{price}</div>
+            {freeshipping}
+            <img src={process.env.PUBLIC_URL + props.pathName} title={[props.title,props.price]} onClick={props.handleClickProduct} />
+            <div>{props.title}</div>
+            <div>{props.price}</div>
             <div className="AddToCart">Add To Cart</div>
         </div>
     )
