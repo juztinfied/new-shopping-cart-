@@ -10,7 +10,9 @@ class App extends Component {
     sideDrawerOpen: false,
     skus: Object.keys(this.props.products),
     products: this.props.products,
-    selected: {}
+    selected: {},
+    noOfItems: 0,
+    totalprice: 0
   }
 
   drawerToggleClickHandler = () => {
@@ -19,11 +21,25 @@ class App extends Component {
     });
   }
 
+  deleteProduct = (itemname) => {
+    let newSelected = Object.assign({}, this.state.selected)
+    let count = this.state.noOfItems - newSelected[itemname][1]
+    let totalprice = this.state.totalprice - newSelected[itemname][0]
+    delete newSelected[itemname]
+    this.setState({
+      selected: newSelected,
+      noOfItems: count,
+      totalprice: totalprice
+    })
+  }
+
   handleClickProduct = (e) => {
     let array = e.target.title.split(/[,]+/);
     let price = parseFloat(array[1])
     let title = array[0]
     let imgPath = e.target.src
+    let count = this.state.noOfItems + 1
+    let totalprice = this.state.totalprice
 
     let newSelected = Object.assign({}, this.state.selected)
     if (this.state.selected[title] !== undefined){
@@ -32,9 +48,13 @@ class App extends Component {
     else{
       newSelected[title] = [price,1, imgPath]
     }
+
+    totalprice += price
       
     this.setState({
-      selected: newSelected
+      selected: newSelected,
+      noOfItems: count,
+      totalprice: totalprice
       }, () => {
         console.log(this.state.selected)
       }
@@ -49,8 +69,8 @@ class App extends Component {
     return (
       <div>
         <CardsContainer items={items} pathNames={pathNames} allProductData={this.state.products} handleClickProduct={this.handleClickProduct}/> 
-        <Button drawerClickHandler={this.drawerToggleClickHandler}/>
-        <Sidebar show={this.state.sideDrawerOpen} selected={this.state.selected} drawerClickHandler={this.drawerToggleClickHandler}/>
+        <Button drawerClickHandler={this.drawerToggleClickHandler} noOfItems={this.state.noOfItems}/>
+        <Sidebar show={this.state.sideDrawerOpen} selected={this.state.selected} drawerClickHandler={this.drawerToggleClickHandler} deleteProduct={this.deleteProduct} totalPrice={this.state.totalprice}/>
       </div>
     )
 

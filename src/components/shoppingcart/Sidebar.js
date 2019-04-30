@@ -1,6 +1,7 @@
 import React from 'react'
 
 const Sidebar = (props) => {
+    console.log(props)
     let drawerClasses = 'sidebar';
     if (props.show) {
         drawerClasses = 'sidebar open';
@@ -21,20 +22,21 @@ const Sidebar = (props) => {
 
     let shoppingCart2 = shoppingCart.map(item => {
         return (
-            <div>
+            <div className="cartitem">
+                <div className="name"><b>{item[0]}</b></div>
+                <div className="unit-price">Count: {item[1]}</div>
+                <div className="total-price">Total price: {item[2]}</div>
+                <button className="cart-xbutton" onClick={() => {props.deleteProduct(item[0])}}>X</button>
                 <img src={item[3]} /> 
-                <div>{item[0]}</div>
-                <div>Unit price: {item[1]}</div>
-                <div>Total price: {item[2]}</div>
             </div>
         )
-
     })
 
     return ( 
             <div className={drawerClasses}>
                 <button className="xbutton" onClick={props.drawerClickHandler}>X</button>
                 {shoppingCart2}
+                <div className="totalprice">Total price: {props.totalPrice}</div>
             </div>
     )
 }
