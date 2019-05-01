@@ -29,7 +29,7 @@ const CardsContainer = ({items, pathNames, allProductData, handleClickProduct}) 
 
   return (
     <div className="cardcontainer">
-      <div className="noOfItems">{noOfItems} Product(s) found</div>
+      <div className="noOfItems">{noOfItems} Product(s) found </div>
       {output}
     </div>
   )

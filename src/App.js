@@ -57,6 +57,7 @@ class App extends Component {
   }
 
   handleClickProduct = (e) => {
+    console.log(e.target.value);
     let array = e.target.value.split(/[,]+/);
     let title = array[0]
     let price = parseFloat(array[1])
@@ -87,8 +88,11 @@ class App extends Component {
       totalprice: totalprice
       })
 
-    Firebase.database().ref('/').set(this.state);
 
+    let updates = {};
+    updates['inventory/' + sku] = item
+    
+    output.database().ref().update(updates);
   }
 
   render() {
