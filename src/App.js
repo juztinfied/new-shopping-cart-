@@ -2,17 +2,40 @@ import React, { Component } from 'react';
 import CardsContainer from './components/CardsContainer';
 import Sidebar from './components/shoppingcart/Sidebar';
 import Button from './components/shoppingcart/Button';
-
-import './App.css';
+import output from './Config/config';
 
 class App extends Component {
+  db = output.database().ref().child('inventory')
   state = {
     sideDrawerOpen: false,
     skus: Object.keys(this.props.products),
     products: this.props.products,
     selected: {},
     noOfItems: 0,
-    totalprice: 0
+    totalprice: 0,
+    inventory: {}
+  }
+
+  componentDidMount(){
+    let inventory = {};
+    this.db.on("value", )
+  }
+
+  componentDidMount() {
+    var ref = firebase.app().database().ref();
+    var jobRef = ref.child('jobs');
+
+    var jobs = [];
+    jobRef.once("value", (snapshot) => {
+      snapshot.forEach(function(child) {
+        var job = child.val();
+        jobs.push(job);
+      });
+      this.setState({ jobs: jobs});
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
   }
 
   drawerToggleClickHandler = () => {
