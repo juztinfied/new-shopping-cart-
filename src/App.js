@@ -3,6 +3,8 @@ import CardsContainer from './components/CardsContainer';
 import Sidebar from './components/shoppingcart/Sidebar';
 import Button from './components/shoppingcart/Button';
 import output from './Config/config';
+import Firebase from 'firebase';
+import './App.css';
 
 class App extends Component {
   db = output.database().ref().child('inventory')
@@ -16,26 +18,14 @@ class App extends Component {
     inventory: {}
   }
 
-  componentDidMount(){
-    let inventory = {};
-    this.db.on("value", )
-  }
-
   componentDidMount() {
-    var ref = firebase.app().database().ref();
-    var jobRef = ref.child('jobs');
-
-    var jobs = [];
-    jobRef.once("value", (snapshot) => {
+    var inventory = {};
+    this.db.on("value", (snapshot) => {
       snapshot.forEach(function(child) {
-        var job = child.val();
-        jobs.push(job);
+        inventory[child.key] = child.val();
       });
-      this.setState({ jobs: jobs});
+      this.setState({ inventory: inventory});
     })
-    .catch(function(error) {
-      console.log(error);
-    });
   }
 
   drawerToggleClickHandler = () => {
@@ -67,10 +57,12 @@ class App extends Component {
   }
 
   handleClickProduct = (e) => {
-    let array = e.target.title.split(/[,]+/);
-    let price = parseFloat(array[1])
+    let array = e.target.value.split(/[,]+/);
     let title = array[0]
-    let imgPath = e.target.src
+    let price = parseFloat(array[1])
+    let sku = array[2]
+    let imgPath = '/data/products/' + sku + '_1.jpg';
+    let size = array[3]
     let count = this.state.noOfItems + 1
     let totalprice = this.state.totalprice
 
@@ -83,15 +75,19 @@ class App extends Component {
     }
 
     totalprice += price
-      
+
+    let newInventory = Object.assign({}, this.state.inventory);
+    let item = newInventory[sku] 
+    item[size] -= 1
+    newInventory[sku] = item
+    
     this.setState({
       selected: newSelected,
       noOfItems: count,
       totalprice: totalprice
-      }, () => {
-        console.log(this.state.selected)
-      }
-    )
+      })
+
+    Firebase.database().ref('/').set(this.state);
 
   }
 

@@ -11,7 +11,8 @@ const CardsContainer = ({items, pathNames, allProductData, handleClickProduct}) 
     })
 
     pair['name'] = item.title;
-    pair['imagePath'] = '/data/products/' + pathName + '_1.jpg'
+    // pair['imagePath'] = '/data/products/' + pathName + '_1.jpg'
+    pair['imagePath'] = pathName
     pair['price'] = allProductData[pathName]['price']
     pairedList.push(pair);
     return item;
@@ -20,7 +21,7 @@ const CardsContainer = ({items, pathNames, allProductData, handleClickProduct}) 
 
   const output = pairedList.map((pair) => {
     return (
-      <Card title={pair.name} pathName={pair.imagePath} price={pair.price} handleClickProduct={handleClickProduct}/>
+      <Card title={pair.name} sku={pair.imagePath} price={pair.price} handleClickProduct={handleClickProduct}/>
     )
   })
 
