@@ -7,12 +7,14 @@ const Sidebar = (props) => {
     }
 
     let shoppingCart = []
-    if (props.selected  ){
+    if (props.selected){
         for (let itemName in props.selected){
             let totalPrice = props.selected[itemName][0];
             let unitPrice = props.selected[itemName][1];
             let imgPath = props.selected[itemName][2];
-            shoppingCart.push([itemName, unitPrice, totalPrice, imgPath])
+            let size = props.selected[itemName][3];
+            console.log('imgpath', imgPath)
+            shoppingCart.push([itemName, unitPrice, totalPrice, imgPath, size])
         }
     }
 
@@ -23,7 +25,7 @@ const Sidebar = (props) => {
                 <div className="name"><b>{item[0]}</b></div>
                 <div className="unit-price">Count: {item[1]}</div>
                 <div className="total-price">Total price: {item[2]}</div>
-                <button className="cart-xbutton" onClick={() => {props.deleteProduct(item[0])}}>X</button>
+                <button className="cart-xbutton" onClick={() => {props.deleteProduct(item)}}>X</button>
                 <img src={item[3]} /> 
             </div>
         )

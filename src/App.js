@@ -34,18 +34,6 @@ class App extends Component {
     });
   }
 
-  deleteProduct = (itemname) => {
-    let newSelected = Object.assign({}, this.state.selected)
-    let count = this.state.noOfItems - newSelected[itemname][1]
-    let totalprice = this.state.totalprice - newSelected[itemname][0]
-    delete newSelected[itemname]
-    this.setState({
-      selected: newSelected,
-      noOfItems: count,
-      totalprice: totalprice
-    })
-  }
-
   checkOutItems = () => {
     alert('You have checked out' + this.state.noOfItems  + 'items. Total price: ' + this.state.totalprice)
 
@@ -69,10 +57,10 @@ class App extends Component {
 
     let newSelected = Object.assign({}, this.state.selected)
     if (this.state.selected[title] !== undefined){
-      newSelected[title] = [(newSelected[title][0] + price), (newSelected[title][1] + 1), imgPath]
+      newSelected[title] = [(newSelected[title][0] + price), (newSelected[title][1] + 1), imgPath, size]
     }
     else{
-      newSelected[title] = [price,1, imgPath]
+      newSelected[title] = [price,1, imgPath, size]
     }
 
     totalprice += price
@@ -93,6 +81,31 @@ class App extends Component {
     updates['inventory/' + sku] = item
     
     output.database().ref().update(updates);
+  }
+
+  deleteProduct = (deleted) => {
+    let newSelected = Object.assign({}, this.state.selected)
+    let count = this.state.noOfItems - newSelected[deleted[0]][1]
+    let totalprice = this.state.totalprice - newSelected[deleted[0]][0]
+    delete newSelected[deleted[0]]
+    let sku = deleted[2].slice(15, -6)
+    console.log(sku)
+
+    // let newInventory = Object.assign({}, this.state.inventory);
+    // let item = newInventory[sku] 
+    // item[size] += 1
+    // newInventory[sku] = item
+
+    this.setState({
+      selected: newSelected,
+      noOfItems: count,
+      totalprice: totalprice
+    })
+
+    // let updates = {};
+    // updates['inventory/' + sku] = item
+    
+    // output.database().ref().update(updates);
   }
 
   render() {
