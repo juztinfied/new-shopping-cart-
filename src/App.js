@@ -30,6 +30,20 @@ class App extends Component {
     })
   }
 
+  // componentWillUpdate (nextProps, nextState) {
+  //   if (nextState.inventory !== this.state.inventory){
+  //     var inventory = {};
+  //     this.db.on("value", (snapshot) => {
+  //       snapshot.forEach(function(child) {
+  //         inventory[child.key] = child.val();
+  //       });
+  //       this.setState({
+  //         inventory: inventory
+  //       });
+  //     })
+  //   }
+  // }
+
   drawerToggleClickHandler = () => {
     this.setState((prevState) => {
       return {sideDrawerOpen: !prevState.sideDrawerOpen} ;
@@ -81,7 +95,8 @@ class App extends Component {
     this.setState({
       selected: newSelected,
       noOfItems: count,
-      totalprice: totalprice
+      totalprice: totalprice,
+      inventory: newInventory
     })
 
 
