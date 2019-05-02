@@ -1,18 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import output from '../Config/config';
 
-const Card = ({title, sku, price, handleClickProduct}) => {
-    let itemDb = output.database().ref().child('inventory/' + sku)
-    const [itemInven, setItemInven] = useState({})
+const Card = ({title, sku, price, handleClickProduct, itemInventoryDb}) => {
+    // const [itemInventory, setItemInventory] = useState({})
+    // const [cart, setCart] = useState({})
 
-    let tempInven = {};
-    this.db.on("value", (snapshot) => {
-      snapshot.forEach(function(child) {
-        tempInven[child.key] = child.val();
-      });
-      setItemInven(Object.assign({}, tempInven))
-    })
-
+    // setItemInventory(Object.assign({},itemInventoryDb))
 
     let imgPath = '/data/products/' + sku + '_1.jpg';
     let value = [title, price, sku];

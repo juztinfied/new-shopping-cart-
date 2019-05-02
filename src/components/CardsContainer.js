@@ -1,7 +1,7 @@
 import React from 'react';
 import Card from './Card';
 
-const CardsContainer = ({items, pathNames, allProductData, handleClickProduct}) => {
+const CardsContainer = ({items, pathNames, allProductData, handleClickProduct, inventory}) => {
   const pairedList = [];
   items.forEach(item => {
     let pair = {};
@@ -21,7 +21,8 @@ const CardsContainer = ({items, pathNames, allProductData, handleClickProduct}) 
 
   const output = pairedList.map((pair) => {
     return (
-      <Card title={pair.name} sku={pair.imagePath} price={pair.price} handleClickProduct={handleClickProduct}/>
+      <Card title={pair.name} sku={pair.imagePath} price={pair.price}
+        handleClickProduct={handleClickProduct} itemInventoryDb={inventory[pair.imagePath]}/>
     )
   })
 

@@ -24,7 +24,9 @@ class App extends Component {
       snapshot.forEach(function(child) {
         inventory[child.key] = child.val();
       });
-      this.setState({ inventory: inventory});
+      this.setState({
+        inventory: inventory
+      });
     })
   }
 
@@ -57,10 +59,16 @@ class App extends Component {
 
     let newSelected = Object.assign({}, this.state.selected)
     if (this.state.selected[title] !== undefined){
-      newSelected[title] = [(newSelected[title][0] + price), (newSelected[title][1] + 1), imgPath, size]
+      let newSizeCount = newSelected[title][3]
+      newSizeCount[size] += 1
+      newSelected[title] = [(newSelected[title][0] + price), (newSelected[title][1] + 1), imgPath, newSizeCount]
+      console.log(newSelected)
     }
     else{
-      newSelected[title] = [price,1, imgPath, size]
+      let sizeCount = {"S": 0, "M": 0, "L": 0, "XL": 0}
+      sizeCount[size] += 1
+      newSelected[title] = [price,1,imgPath,sizeCount]
+      console.log(newSelected)
     }
 
     totalprice += price
@@ -74,7 +82,7 @@ class App extends Component {
       selected: newSelected,
       noOfItems: count,
       totalprice: totalprice
-      })
+    })
 
 
     let updates = {};
@@ -83,18 +91,21 @@ class App extends Component {
     output.database().ref().update(updates);
   }
 
-  deleteProduct = (deleted) => {
+  deleteProduct = (deletedItem) => {
+    let itemName = deletedItem[0]
     let newSelected = Object.assign({}, this.state.selected)
-    let count = this.state.noOfItems - newSelected[deleted[0]][1]
-    let totalprice = this.state.totalprice - newSelected[deleted[0]][0]
-    delete newSelected[deleted[0]]
-    let sku = deleted[2].slice(15, -6)
-    console.log(sku)
+    let count = this.state.noOfItems - newSelected[itemName][1]
+    let totalprice = this.state.totalprice - newSelected[itemName][0]
+    let sizeCount = deletedItem[4]
+    delete newSelected[itemName]
+    let sku = deletedItem[3].slice(15, -6)
 
-    // let newInventory = Object.assign({}, this.state.inventory);
-    // let item = newInventory[sku] 
-    // item[size] += 1
-    // newInventory[sku] = item
+    let newInventory = Object.assign({}, this.state.inventory);
+    let item = newInventory[sku] 
+    for (let size in sizeCount){
+      item[size] += sizeCount[size]
+    }
+    newInventory[sku] = item
 
     this.setState({
       selected: newSelected,
@@ -102,10 +113,10 @@ class App extends Component {
       totalprice: totalprice
     })
 
-    // let updates = {};
-    // updates['inventory/' + sku] = item
+    let updates = {};
+    updates['inventory/' + sku] = item
     
-    // output.database().ref().update(updates);
+    output.database().ref().update(updates);
   }
 
   render() {
@@ -114,7 +125,8 @@ class App extends Component {
 
     return (
       <div>
-        <CardsContainer items={items} pathNames={pathNames} allProductData={this.state.products} handleClickProduct={this.handleClickProduct}/> 
+        <CardsContainer items={items} pathNames={pathNames} allProductData={this.state.products}
+          handleClickProduct={this.handleClickProduct} inventory={this.state.inventory}/> 
         <Button drawerClickHandler={this.drawerToggleClickHandler} noOfItems={this.state.noOfItems}/>
         <Sidebar show={this.state.sideDrawerOpen} selected={this.state.selected} drawerClickHandler={this.drawerToggleClickHandler}
         deleteProduct={this.deleteProduct} totalPrice={this.state.totalprice} checkOutItems={this.checkOutItems}/>

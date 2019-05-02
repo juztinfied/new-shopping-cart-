@@ -1,6 +1,7 @@
 import React from 'react'
 
 const Sidebar = (props) => {
+    console.log(props.selected)
     let drawerClasses = 'sidebar';
     if (props.show) {
         drawerClasses = 'sidebar open';
@@ -12,9 +13,9 @@ const Sidebar = (props) => {
             let totalPrice = props.selected[itemName][0];
             let unitPrice = props.selected[itemName][1];
             let imgPath = props.selected[itemName][2];
-            let size = props.selected[itemName][3];
+            let sizeCount = props.selected[itemName][3];
             console.log('imgpath', imgPath)
-            shoppingCart.push([itemName, unitPrice, totalPrice, imgPath, size])
+            shoppingCart.push([itemName, unitPrice, totalPrice, imgPath, sizeCount])
         }
     }
 
