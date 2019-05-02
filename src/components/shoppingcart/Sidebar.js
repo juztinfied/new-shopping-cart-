@@ -19,7 +19,7 @@ const Sidebar = (props) => {
         }
     }
 
-
+//sadf
     let shoppingCart2 = shoppingCart.map(item => {
         return (
             <div className="cartitem">
