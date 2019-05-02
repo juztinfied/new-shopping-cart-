@@ -3,7 +3,8 @@ import CardsContainer from './components/CardsContainer';
 import Sidebar from './components/shoppingcart/Sidebar';
 import Button from './components/shoppingcart/Button';
 import output from './Config/config';
-import Firebase from 'firebase';
+import firebase from 'firebase';
+import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth"
 import './App.css';
 
 class App extends Component {
@@ -15,10 +16,26 @@ class App extends Component {
     selected: {},
     noOfItems: 0,
     totalprice: 0,
-    inventory: {}
+    inventory: {},
+    isSignedIn: false
+  }
+
+  uiConfig = {
+    signInFlow: "popup",
+    signInOptions: [
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+    ],
+    callbacks: {
+      signInSuccess: () => false
+    }
   }
 
   componentDidMount() {
+
+
+    firebase.auth().onAuthStateChanged(user => {
+      this.setState({isSignedIn: !!user})
+    })
     var inventory = {};
     this.db.on("value", (snapshot) => {
       snapshot.forEach(function(child) {
@@ -140,11 +157,22 @@ class App extends Component {
 
     return (
       <div>
-        <CardsContainer items={items} pathNames={pathNames} allProductData={this.state.products}
-          handleClickProduct={this.handleClickProduct} inventory={this.state.inventory}/> 
-        <Button drawerClickHandler={this.drawerToggleClickHandler} noOfItems={this.state.noOfItems}/>
-        <Sidebar show={this.state.sideDrawerOpen} selected={this.state.selected} drawerClickHandler={this.drawerToggleClickHandler}
-        deleteProduct={this.deleteProduct} totalPrice={this.state.totalprice} checkOutItems={this.checkOutItems}/>
+        {this.state.isSignedIn ? (
+          <div> 
+            <button onClick={() => firebase.auth().signOut()}>Sign out!</button>
+            <CardsContainer items={items} pathNames={pathNames} allProductData={this.state.products}
+              handleClickProduct={this.handleClickProduct} inventory={this.state.inventory}/> 
+            <Button drawerClickHandler={this.drawerToggleClickHandler} noOfItems={this.state.noOfItems}/>
+            <Sidebar show={this.state.sideDrawerOpen} selected={this.state.selected} drawerClickHandler={this.drawerToggleClickHandler}
+              deleteProduct={this.deleteProduct} totalPrice={this.state.totalprice} checkOutItems={this.checkOutItems}/>
+          </div>
+        ) : (
+          <StyledFirebaseAuth
+            uiConfig={this.uiConfig}
+            firebaseAuth={firebase.auth()} />
+        )
+        }
+
       </div>
     )
 
