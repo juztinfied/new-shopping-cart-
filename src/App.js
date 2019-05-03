@@ -31,11 +31,6 @@ class App extends Component {
   }
 
   componentDidMount() {
-
-
-    firebase.auth().onAuthStateChanged(user => {
-      this.setState({isSignedIn: !!user})
-    })
     var inventory = {};
     this.db.on("value", (snapshot) => {
       snapshot.forEach(function(child) {
@@ -44,6 +39,14 @@ class App extends Component {
       this.setState({
         inventory: inventory
       });
+    })
+    console.log(this.state.inventory);
+  }
+
+  componentWillMount() {
+    console.log('asdasdf')
+    firebase.auth().onAuthStateChanged(user => {
+      this.setState({isSignedIn: !!user})
     })
   }
 
