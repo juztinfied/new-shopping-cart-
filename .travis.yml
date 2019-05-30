@@ -10,6 +10,6 @@ script:
 deploy:
   provider: firebase
   token:
-    secure: "YOUR ENCRYPTED token"
+    secure: 1/gwDN7liaizBovMJfkSgWmSr_6ciH2QassU4JUGzfemU
  
  
